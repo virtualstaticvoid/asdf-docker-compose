@@ -11,8 +11,9 @@ install_compose() {
   local install_type=$1
   local version=$2
   local install_path=$3
+
   local bin_install_path="$install_path/bin"
-  local download_url="$(get_download_url $version)"
+  local download_url="$(get_download_url $install_type $version)"
 
   mkdir -p "${bin_install_path}"
 
