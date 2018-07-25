@@ -14,7 +14,7 @@ sort_versions() {
 }
 
 releases_path=https://api.github.com/repos/docker/compose/releases
-cmd="curl -s"
+cmd="curl -sL"
 if [ -n "$OAUTH_TOKEN" ]; then
   cmd="$cmd -H 'Authorization: token $OAUTH_TOKEN'"
 fi
