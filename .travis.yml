@@ -1,10 +1,19 @@
 language: c
 
-script: asdf plugin-test docker-compose https://github.com/virtualstaticvoid/asdf-docker-compose.git
+script: asdf plugin-test docker-compose https://github.com/virtualstaticvoid/asdf-docker-compose.git "docker-compose --version"
 
 before_script:
-  - git clone --branch v0.5.1 https://github.com/asdf-vm/asdf.git
+  - git clone --branch v0.5.1 https://github.com/asdf-vm/asdf.git asdf
   - . asdf/asdf.sh
 
 os:
   - linux
+  - osx
+
+addons:
+  apt:
+    packages:
+    - jq
+
+before_install:
+  - if [ $TRAVIS_OS_NAME = osx ]; then brew update && brew install jq; fi
