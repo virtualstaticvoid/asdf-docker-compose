@@ -22,7 +22,7 @@ cmd="$cmd $releases_path"
 
 # need jq; download portable version if not installed
 if [ -z "$(command -v jq)" ]; then
-  curl -L -s "https://github.com/stedolan/jq/releases/download/jq-1.5/jq-$(get_platform)" -o jq
+  curl -L -s "https://github.com/stedolan/jq/releases/download/jq-1.6/jq-$(get_platform)" -o jq
   chmod +x jq
 fi
 
