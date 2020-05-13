@@ -1,25 +1,21 @@
 #!/usr/bin/env bash
 
-set -e
-# set -x
+set -eo pipefail
 
-get_platform() {
-  [ "Linux" = "$(uname)" ] && echo "linux64" || echo "osx-amd64"
+repo=docker/compose
+
+cmd="curl --silent --location"
+releases_path="https://api.github.com/repos/$repo/releases"
+
+if [ -n "$GITHUB_API_TOKEN" ]; then
+  cmd="$cmd --header 'Authorization: token $GITHUB_API_TOKEN'"
+fi
+
+sort_versions() {
+  sed 'h; s/[+-]/./g; s/.p\([[:digit:]]\)/.z\1/; s/$/.z/; G; s/\n/ /' |
+    LC_ALL=C sort -t. -k 1,1 -k 2,2n -k 3,3n -k 4,4n -k 5,5n | awk '{print $2}'
 }
 
-releases_path=https://api.github.com/repos/docker/compose/releases
-cmd="curl -sL"
-if [ -n "$OAUTH_TOKEN" ]; then
-  cmd="$cmd -H 'Authorization: token $OAUTH_TOKEN'"
-fi
-cmd="$cmd $releases_path"
+versions=$(eval "$cmd $releases_path" | grep -oE "tag_name\":\s?\".*\"," | sed 's/tag_name\": *\"//;s/\",//' | sort_versions)
 
-# need jq; download portable version if not installed
-if [ -z "$(command -v jq)" ]; then
-  curl -L -s "https://github.com/stedolan/jq/releases/download/jq-1.6/jq-$(get_platform)" -o jq
-  chmod +x jq
-fi
-
-# fetch all tag names
-versions=$(eval $cmd | jq -r '.[].tag_name' | sort --version-sort)
-echo $versions
+echo "$versions"
