@@ -18,11 +18,11 @@ sort_versions() {
 
 versions=$(eval "$cmd $releases_path" | grep -oE "tag_name\":\s?\".*\"," | sed 's/tag_name\": *\"//;s/\",//' | sed 's/^[v]//' | sort_versions | xargs)
 
-echo
-echo NOTE:
-echo
-echo Version 2.x or greater are NOT SUPPORTED by this plugin.
-echo Please see https://github.com/docker/compose#where-to-get-docker-compose for more info.
-echo
+>&2 echo
+>&2 echo NOTE:
+>&2 echo
+>&2 echo Version 2.x or greater are NOT SUPPORTED by this plugin.
+>&2 echo Please see https://github.com/docker/compose#where-to-get-docker-compose for more info.
+>&2 echo
 
 echo "$versions"
