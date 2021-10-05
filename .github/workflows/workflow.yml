@@ -23,5 +23,15 @@ jobs:
         uses: asdf-vm/actions/plugin-test@v1.0.1
         with:
           command: docker-compose --version
+          version: "1.29.2"
+        env:
+          GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # this will fail...
+      - name: asdf_plugin_test_2_0_0
+        uses: asdf-vm/actions/plugin-test@v1.0.1
+        with:
+          command: docker-compose --version
+          version: "2.0.0"
         env:
           GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}

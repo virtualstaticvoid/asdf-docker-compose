@@ -13,6 +13,16 @@ install_plugin() {
   local version=$2
   local install_path=$3
 
+  if [ "$(printf '%s\n' "2.0.0" "$version" | sort -rV | head -n1)" = "$version" ]; then
+    echo
+    echo NOTE:
+    echo
+    echo Version 2.x or greater are NOT SUPPORTED by this plugin.
+    echo Please see https://github.com/docker/compose#where-to-get-docker-compose for more info.
+    echo
+    exit 1
+  fi
+
   local bin_install_path="$install_path/bin"
   local download_url="$(get_download_url $install_type $version)"
 
