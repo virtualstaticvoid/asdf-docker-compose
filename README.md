@@ -1,6 +1,6 @@
 # asdf-docker-compose
 
-[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/virtualstaticvoid/asdf-docker-compose/Main%20Workflow?style=flat-square)](https://github.com/virtualstaticvoid/asdf-docker-compose/actions)
+[![Main Workflow](https://github.com/virtualstaticvoid/asdf-docker-compose/actions/workflows/workflow.yml/badge.svg)](https://github.com/virtualstaticvoid/asdf-docker-compose/actions/workflows/workflow.yml)
 
 [`docker-compose`][util] plugin for [asdf](https://github.com/asdf-vm/asdf) version manager
 
